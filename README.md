@@ -14,6 +14,7 @@ The reason I create SmallFileDB and dont' want to use sqlite:
 
 
 The Key Design :
+===========
 
 1. The DB is composed of many tables, each table has a tblxxxx.body, tblxxxx.index.  As the name,  index file will store all the indexes for the table. body file is the table content.
 2. I will make many tools to generate table files, might  be a tool named xls2sfb, it will parse xls files.
