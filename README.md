@@ -33,14 +33,16 @@ Look at the samples directory  , right now there is a as3 sample shows how to re
 Code Snippet:
 ===========
 
+AS3:
+
   		var sfd:MySFD = new MySFD();
-			sfd.fileUtils.addSearchPath(File.applicationDirectory.resolvePath('sfd'));
-			
-			//search the item where id=12071
-			var item:DictItemRecord = sfd.getDictItem().getOneById(12071);
-			
-			//search the items where type=1 and can_bub=1
-			var ar:Array = sfd.getDictItem().getListByTypeCanBuy(1, 1);
+		sfd.fileUtils.addSearchPath(File.applicationDirectory.resolvePath('sfd'));
+		
+		//search the item where id=12071
+		var item:DictItemRecord = sfd.getDictItem().getOneById(12071);
+		
+		//search the items where type=1 and can_bub=1
+		var ar:Array = sfd.getDictItem().getListByTypeCanBuy(1, 1);
 
 
 
