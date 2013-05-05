@@ -3,11 +3,12 @@ SmallFileDB
 
 Small file db, only readable, supports multiple indexes.
 
-The reason I create SmallFileDB and dont' want to use sqlite:
+The reasons I create SmallFileDB and why I am not using  sqlite:
 
 1. I don't need to write data into db.
 2. I don't need to join table.
 3. I don't want to update the whole db file if only one table changed.
+4. I just want to query data like a hash map,  I don't want to use xml/json because I don't want to read all the data into memory.
 4. I need a cross-platform, not os depended file db.
 5. Simple enough, easy to modify the source code to fit your need.
 6. 2x+ faster than sqlite since we cache the indexes.
