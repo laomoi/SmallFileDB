@@ -1,0 +1,1 @@
+{"rnames":["id","type","canBuy","name","attack","sellMoney"],"types":["int","int","int","string","int","int"],"names":["id","type","can_buy","name","attack","sell_money"],"name":"dict_item","indexes":[{"origin":["id"],"type":["int"],"column":[0]},{"origin":["type","can_buy"],"type":["int","int"],"column":[1,2]}]}

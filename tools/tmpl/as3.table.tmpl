@@ -1,0 +1,16 @@
+package %PACK_NAME%
+{
+    import com.swfdiy.sfd.SFTable;
+	import com.swfdiy.sfd.SFD;
+
+	public class %DICT_CLASS_NAME% extends SFTable
+	{
+		public function %DICT_CLASS_NAME%(sfd:SFD, tableName:String, clRecord:Class)
+		{
+			super(sfd, tableName, clRecord);
+		}
+		
+%LOOP_SET%
+		
+	}
+}
