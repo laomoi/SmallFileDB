@@ -13,6 +13,7 @@ The reasons I create SmallFileDB and why I am not using  sqlite: 为什么我要
 6. Simple enough, easy to modify the source code to fit your need.
 7. 2x+ faster than sqlite since we cache the indexes. （benkmark on PC only)
 
+===========
 1. 我不需要写数据
 2. 我不需要联合外表查询
 3. 我不想只是修改了某个表就要替换整个DB文件
