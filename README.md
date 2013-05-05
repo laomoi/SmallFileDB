@@ -27,8 +27,21 @@ Usage:
 Look at the samples directory  , right now there is a as3 sample shows how to read the db files.
 
 1. Use tools/xls2sfd.pl to convert dict_test.xlsx to sfd/ which contains db files.
-2. Use tools/meta2as3.pl to create as3 library to use the sfd/ created just now.
+2. Use tools/meta2as3.pl to create as3 library(sfdvo/) to use the sfd  created just now.
 3. Create a AS3 project, (just look into the samples\as3).
+
+Code Snippet:
+===========
+
+  		var sfd:MySFD = new MySFD();
+			sfd.fileUtils.addSearchPath(File.applicationDirectory.resolvePath('sfd'));
+			
+			//search the item where id=12071
+			var item:DictItemRecord = sfd.getDictItem().getOneById(12071);
+			
+			//search the items where type=1 and can_bub=1
+			var ar:Array = sfd.getDictItem().getListByTypeCanBuy(1, 1);
+
 
 
 
