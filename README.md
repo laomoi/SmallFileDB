@@ -1,17 +1,25 @@
-SmallFileDB
+SmallFileDB  (SFD)
 ===========
 
-Small file db, only readable, supports multiple indexes.
+Small file db, only readable, supports multiple indexes. 小型只读的文件DB, 支持多个索引和联合索引。
 
-The reasons I create SmallFileDB and why I am not using  sqlite:
+The reasons I create SmallFileDB and why I am not using  sqlite: 为什么我要创建这个项目
 
 1. I don't need to write data into db.
-2. I don't need to join table.
+2. I don't need to join outer tables.
 3. I don't want to update the whole db file if only one table changed.
 4. I just want to query data like a hash map,  I don't want to use xml/json because I don't want to read all the data into memory.
-4. I need a cross-platform, not os depended file db.
-5. Simple enough, easy to modify the source code to fit your need.
-6. 2x+ faster than sqlite since we cache the indexes.
+5. I need a cross-platform, not os depended file db.
+6. Simple enough, easy to modify the source code to fit your need.
+7. 2x+ faster than sqlite since we cache the indexes. （benkmark on PC only)
+
+1. 我不需要写数据
+2. 我不需要联合外表查询
+3. 我不想只是修改了某个表就要替换整个DB文件
+4. 我只想做简单查询, 但是我不想用XML/JSON，因为他们会一次性加载所有数据，占用太多内存
+5. 我需要一个跨平台的，但是不受操作系统限制的文件数据库
+6. 足够简单，代码容易修改
+7. 因为缓存了索引，速度比sqlite快1倍以上(PC上测试)
 
 
 The Key Design :
