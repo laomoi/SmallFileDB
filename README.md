@@ -55,11 +55,11 @@ AS3:
 
 
     //search the items where type >= 2 and type<=3 and can_buy=1  
-      //note: there should be index of (type + can_buy)
+      //note: there should be a index of (type + can_buy)
     ar = sfd.getDictItem().query("type >= 2 and type<=3 and can_buy=1");
 
      //search the items where id >= 12071 and id<=12101 
-     //note: there should be index of (id)
+     //note: there should be a index of (id)
     ar = sfd.getDictItem().query("id >= 12071 and id<=12101");
 
 
