@@ -61,7 +61,16 @@ AS3:
      //search the items where id >= 12071 and id<=12101 
      //note: there should be a index of (id)
     ar = sfd.getDictItem().query("id >= 12071 and id<=12101");
+    
+    
+Simple Query:
+===========
+Just like the code snippet shows, you can use .query(sql) to make some simple queries. It has limits:
 
+1. You should build the indexes at first before you can use the query.
+2. Only "and" condition is supported right now, "or" is not not supported.
+3. int Columns can have condition operators:  >, >=, <, <=, <>
+4. string Columns can have condition operators: <>, =
 
 
 
