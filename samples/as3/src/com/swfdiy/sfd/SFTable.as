@@ -125,6 +125,168 @@ package com.swfdiy.sfd
 			}
 			return listData;
 		}
+		
+		public function query(sql:String):Array {
+			var conditions:Array = sql.split("and");
+			var i:int;
+			var rh:Object = {};
+			var reg:RegExp = new RegExp("(\\w+)\\s*(>=|<=|=|>|<|<>)\\s*(\\d+|'.*?')");
+			
+			var columnCount:int = 0 ;
+			for (i=0;i<conditions.length;i++){
+				var matches:Array = String(conditions[i]).match(reg);
+				if (!matches){
+					throw new Error(conditions[i] + " incorrect sql ");
+					return null;
+				}
+				
+				var column:String = matches[1];
+				var cond:String = matches[2];
+				var value:String = matches[3];
+				
+				if (!rh[column]){
+					rh[column] = [];
+					columnCount++;
+				}
+				rh[column].push([cond, value]);
+			}
+			
+			//which index it will use
+			var findedIndex:int = -1;
+			for (i=0;i<_indexes.length;i++){
+				var raOrigin:Array = _indexes[i]['origin'];
+				if (columnCount == raOrigin.length){
+					for (var r:int=0;r<raOrigin.length;r++){
+						if (rh[raOrigin[r]] == null){
+							break;
+						}
+					}
+					
+					//fuck find the index
+					findedIndex = i;
+					break;
+					
+				}
+			}
+			
+			if (findedIndex == -1){
+				throw new Error("correstponding index not found for " + sql);
+				return null;
+			}
+			
+			var indexData:Object = _indexes[findedIndex]; 
+			var indexListData:Object = indexData['_data'];
+			var origin:Array = indexData['origin'];
+			var type:Array = indexData['type'];
+
+			var result:Object = {};
+			searchCondResult(result, indexListData, 0, origin.length, origin, rh, type);
+			var listData:Array = [];
+			for (var k:String in result){
+				listData.push(getDataByPosition(int(k)));
+			}
+
+			
+			return listData;
+		}
+		
+		
+		protected function setArrayInHash(ar:Array, hs:Object):void {
+			var i:int;
+			for (i=0;i<ar.length;i++){
+				hs[ar[i]] = true;
+			}
+		}
+		protected function searchCondResult(result:Object, sourceData:Object, depth:int, maxDepth:int, origin:Array, rh:Object, type:Array):void{
+			
+			if (maxDepth == depth){
+				//leaf
+				setArrayInHash(sourceData as Array, result);
+				return ;
+			}
+			
+			var conds:Array = rh[origin[depth]];
+			var columnType:String = type[depth];
+			for (var k:String in sourceData){
+				//fits conds
+				var isFit:Boolean = true;
+				for (var c:int=0;c<conds.length;c++){
+					var raCond:Array = conds[c]; //[cond, value]
+					var cond:String = raCond[0];
+					var value:String = raCond[1];
+					
+					
+					if (columnType == "int"){
+						var intK:int = int(k);
+						
+						if (value.substr(0, 1) == "'"){
+							throw new Error("column:" + origin[depth] + " should have int param not : " + value);
+							return null;
+						}
+						var intValue :int = int(value);
+						if (cond == "<>"){
+							if (intK == intValue){
+								isFit = false;
+								break;
+							}
+						} else if (cond == "="){
+							if (intK != intValue){
+								isFit = false;
+								break;
+							}
+						}  else if (cond == ">="){
+							if (intK < intValue){
+								isFit = false;
+								break;
+							}
+						} else if (cond == "<="){
+							if (intK > intValue){
+								isFit = false;
+								break;
+							}
+						}else if (cond == "<"){
+							if (intK >= intValue){
+								isFit = false;
+								break;
+							}
+						}else if (cond == ">"){
+							if (intK <= intValue){
+								isFit = false;
+								break;
+							}
+						} else {
+							throw new Error("column:" + origin[depth] + " should not have operator: " + cond);
+							return ;
+						}
+					} else if (columnType == "string"){
+						//remove '' from value
+						if (value.substr(0, 1) != "'" || value.substr(value.length-2, 1) != "'"){
+							throw new Error("column:" + origin[depth] + " should have string param not : " + value);
+							return ;
+						}
+						value = value.substr(1, value.length-1);
+						if (cond == "<>"){
+							if (k == value){
+								isFit = false;
+								break;
+							}
+						} else if (cond == "="){
+							if (k != value){
+								isFit = false;
+								break;
+							}
+						} else {
+							throw new Error("column:" + origin[depth] + " should not have operator: " + cond);
+							return ;
+						}
+					}
+				}
+				if (isFit){
+					searchCondResult(result, sourceData[k], depth+1, maxDepth,origin, rh, type);
+				}
+			}
+		}
+		
 		public function close():void {
 			if (_bodyStream){
 				_bodyStream.close();
