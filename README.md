@@ -71,5 +71,5 @@ Lua:
    	local ar2 = mysfd:getDictItem():query("type >= 2 and type<=3 and can_buy=1");
  
 
-
+ 
 
