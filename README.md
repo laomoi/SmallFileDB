@@ -24,10 +24,11 @@ The Key Design :
 
 How to generate data from xlsx:
 ===========
-There is a sample xlsx : dict_test.xlsx, it defines all tables and the indexes in it.
+There is a sample xlsx : dict_test.xlsx, it defines all tables and the indexes.
 
 
 cd tools
+
 perl xls2sfd.pl 
 
 and there will be a folder named sfd generated, contains sfd files.
@@ -36,11 +37,13 @@ and there will be a folder named sfd generated, contains sfd files.
 How to use the sfd files
 ===========
 cd tools
+
 perl meta2Lang.pl as3 
 
 This command will generate as3 classes in the folder "sfdvo"
 
 perl meta2Lang.pl lua
+
 This command will generate lua files in the folder "sfdvo"
 
 And then copy sfd and sfdvo into your as3/lua project.
