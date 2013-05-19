@@ -1,9 +1,9 @@
 ---
 --@function [parent=#sfd.%RECORD_CLASS_NAME%] getOneBy%INDEX_NAME%
---@param #sfd.%RECORD_CLASS_NAME% self
+--@param #sfd.%DICT_CLASS_NAME% self
 %INDEX_LOOP%
 --@return sfd.%RECORD_CLASS_NAME%#sfd.%RECORD_CLASS_NAME%
-function %RECORD_CLASS_NAME%:getOneBy%INDEX_NAME%(%INDEX_VALUE_LOOP%)
+function %DICT_CLASS_NAME%:getOneBy%INDEX_NAME%(%INDEX_VALUE_LOOP%)
 	return self:getOneByIndex(%INDEX%, {%INDEX_VALUE_LOOP%}) 
 end
 
