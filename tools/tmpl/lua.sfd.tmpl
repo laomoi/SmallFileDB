@@ -1,0 +1,22 @@
+-----
+-- @module %PACK_NAME%.MySFD
+
+---
+-- @field  [parent=#%PACK_NAME%.MySFD] sfdlib.SFD#sfdlib.SFD super
+
+
+
+local SFD = require("sfdlib.SFD")
+local %SFD_NAME% = class("%SFD_NAME%", SFD)
+
+---
+--@function [parent=#%PACK_NAME%.%SFD_NAME%] ctor
+--@param #%PACK_NAME%.%SFD_NAME% self
+function %SFD_NAME%:ctor()
+	self.super.ctor(self)
+%LOOP_ADD_SET%	
+end
+
+%LOOP_SET%
+
+return %SFD_NAME%

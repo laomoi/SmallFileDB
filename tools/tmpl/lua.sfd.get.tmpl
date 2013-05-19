@@ -1,0 +1,7 @@
+---
+--@function [parent=#%PACK_NAME%.MySFD] get%TABLE_CLASS%
+--@param #%PACK_NAME%.%PACK_NAME% self
+--@return %SFD_NAME%.%TABLE_CLASS%#%SFD_NAME%.%TABLE_CLASS%
+function %SFD_NAME%:get%TABLE_CLASS%()
+	return self:getTable("%TABLE%")
+end			

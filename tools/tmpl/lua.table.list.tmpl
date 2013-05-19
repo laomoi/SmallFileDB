@@ -1,0 +1,10 @@
+---
+--@function [parent=#sfd.%RECORD_CLASS_NAME%] getListBy%INDEX_NAME%
+--@param #sfd.%RECORD_CLASS_NAME% self
+%INDEX_LOOP%
+--@return #table
+function %RECORD_CLASS_NAME%:getListBy%INDEX_NAME%(%INDEX_VALUE_LOOP%)
+	return self:getListBy(%INDEX%, {%INDEX_VALUE_LOOP%}) 
+end
+
+
