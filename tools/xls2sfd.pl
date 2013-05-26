@@ -9,8 +9,8 @@ use Spreadsheet::XLSX;
 use Data::Dumper;
 use JSON;
 
-my $input_dir = "";
-my $output_dir = "";
+my $input_dir = $ARGV[0] || "";
+my $output_dir = $ARGV[1] || "";
 
 my  $json = JSON->new->allow_nonref;
 my $SFD_DIR = $output_dir  . "sfd";
@@ -36,6 +36,7 @@ sub convert_name {
 }
 sub parse_file {
 	my $file = shift;
+    print "$file\n";
 	my $excel = Spreadsheet::XLSX -> new ($file);
 	foreach my $sheet (@{$excel -> {Worksheet}}) {
  		
@@ -44,7 +45,12 @@ sub parse_file {
 		$sheet -> {MaxCol} ||= $sheet -> {MinCol};
 
         #first cell (0,0) is the table info
-        my $table_meta_info = $json->decode($sheet -> {Cells}[0][0]-> {Val});
+        my $value = $sheet -> {Cells}[0][0]-> {Val};
+        if ($value !~ m{\{.*?\}}){
+            print "not a correct file\n";
+            last;
+        }
+        my $table_meta_info = $json->decode($value);
         my $table_info = {
         	name => $table_meta_info->{name} || $sheet->{Name},
         };
@@ -205,7 +211,7 @@ sub parse_file {
 		open(F, '>', $SFD_DIR . "/". $table_info->{name} . '.meta');
 		print F $json->encode($table_info);
 		close F;
-
+        last;
  	}
 }
 

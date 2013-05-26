@@ -7,9 +7,9 @@ use lib "$Bin/perllib";
 
 use Data::Dumper;
 use JSON;
-
-my $input_dir = "sfd/";
-my $output_dir = "";
+my $LANG = $ARGV[0] || "as3";
+my $input_dir = $ARGV[1] || "sfd/";
+my $output_dir = $ARGV[2] || "";
 my $pack_name = "sfdvo";
 my $sfd_name = "MySFD";
 
@@ -21,7 +21,7 @@ my  $json = JSON->new->allow_nonref;
 my $PACK_DIR = $output_dir  . $pack_name . '/';
 system("mkdir " . $PACK_DIR) unless -e $PACK_DIR ;
 
-my $LANG = $ARG[0] || "as3";
+
 
 my $ext = get_ext();
 
@@ -41,6 +41,7 @@ my $sfd_loop_add_set = "";
 my $sfd_loop_set = "";
 
 for my $file (@files ) {
+    print $file . "\n";
     my $meta = $json->decode(file_get_content($file));
 
     my $table_name = convert_B_name($meta->{name});
